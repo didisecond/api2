@@ -7,7 +7,7 @@ import {
     deleteAnime,
     searchAnimesByTitle,
     filterAnimesByGenre
-} from '../controllers/animeRoutes.js';
+} from '../controllers/animeController.js';
 import { check, query } from 'express-validator';
 
 const router = express.Router();
