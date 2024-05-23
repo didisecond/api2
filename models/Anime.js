@@ -6,7 +6,8 @@ const animeSchema = new mongoose.Schema({
     descripcion: String,
     calificacion: { type: Number, default: 0 },
     fechaDeLanzamiento: String,
-    enEmision: Boolean
+    enEmision: Boolean,
+    _id: String
 });
 
 const Anime = mongoose.model('Anime', animeSchema);
