@@ -1,3 +1,4 @@
+import { validationResult } from 'express-validator';
 import Anime from '../models/Anime.js';
 
 // Obtener todos los animes
@@ -68,6 +69,11 @@ export const deleteAnime = async (req, res) => {
 
 // Buscar animes por título
 export const searchAnimesByTitle = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    
     const { titulo } = req.query;
     try {
         const animes = await Anime.find({ titulo: { $regex: titulo, $options: 'i' } });
@@ -79,6 +85,11 @@ export const searchAnimesByTitle = async (req, res) => {
 
 // Filtrar animes por género
 export const filterAnimesByGenre = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const { genero } = req.query;
     const genresArray = genero.split(',');
     try {
