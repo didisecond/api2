@@ -65,3 +65,26 @@ export const deleteAnime = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
+// Buscar animes por título
+export const searchAnimesByTitle = async (req, res) => {
+    const { titulo } = req.query;
+    try {
+        const animes = await Anime.find({ titulo: { $regex: titulo, $options: 'i' } });
+        res.json(animes);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+// Filtrar animes por género
+export const filterAnimesByGenre = async (req, res) => {
+    const { genero } = req.query;
+    const genresArray = genero.split(',');
+    try {
+        const animes = await Anime.find({ genero: { $in: genresArray } });
+        res.json(animes);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
