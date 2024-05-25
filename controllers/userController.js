@@ -1,5 +1,4 @@
 import User from '../models/User.js';
-import bcrypt from 'bcryptjs';
 
 // Obtener todos los usuarios
 export const getUsers = async (req, res) => {
@@ -20,8 +19,7 @@ export const createUser = async (req, res) => {
             return res.status(400).json({ message: 'El usuario ya existe' });
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const user = new User({ name, email, password: hashedPassword });
+        const user = new User({ name, email, password });
         const newUser = await user.save();
         res.status(201).json(newUser);
     } catch (err) {
